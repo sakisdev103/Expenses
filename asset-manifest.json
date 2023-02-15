@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Expences-App/static/css/main.93de0211.css",
+    "main.js": "/Expences-App/static/js/main.9c1910eb.js",
+    "index.html": "/Expences-App/index.html",
+    "main.93de0211.css.map": "/Expences-App/static/css/main.93de0211.css.map",
+    "main.9c1910eb.js.map": "/Expences-App/static/js/main.9c1910eb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93de0211.css",
+    "static/js/main.9c1910eb.js"
+  ]
+}
