@@ -1,47 +1,71 @@
-import React, { useState , useContext } from 'react';
-import { globalContext } from '../context/globalState';
-import Transactions from './transactions';
-import Balance from './balance';
+import React, { useState, useContext } from "react";
+import { globalContext } from "../context/globalState";
+import Transactions from "./transactions";
+import Balance from "./balance";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import uniqid from "uniqid";
 
-function Main() {
-  const [text, setText] = useState('');
+const Main = () => {
+  const [text, setText] = useState("");
   const [amount, setAmount] = useState(0);
-  const {addTransaction} = useContext(globalContext);
+  const { addTransaction } = useContext(globalContext);
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     const newTransaction = {
-        id: Math.floor(Math.random() * 10000),
-        text,
-        amount: +amount
-    }
+      id: uniqid(),
+      text,
+      amount: +amount,
+    };
 
     addTransaction(newTransaction);
-
-  }
+    setText("");
+    setAmount(0);
+  };
 
   return (
-    <main className='main'>
-        <form onSubmit={handleSubmit}>
-            <div className='inputs'>
-                <input type="text" placeholder='Enter Expence' value={text} onChange={ (e)=> setText(e.target.value)}/>
-                <input type="text" placeholder='Amount' value={amount} onChange={(e)=> setAmount(e.target.value)} />
-            </div>
-            <button type="submit" className='add-btn'>ADD</button>
-        </form>
-        <section className="transactions">
-            <h3>Recent Transactions</h3>
-            <div className="underline"></div>
-            <div className='container'>
-                <Transactions/>
-            </div>
-            <div className="balance">
-                <p>YOUR BALANCE</p>
-                <h3><Balance/></h3>
-            </div>
-        </section>
-    </main>
-  )
-}
+    <Container maxWidth="sm">
+      <Box
+        component="form"
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
+        <Grid
+          container
+          alignItems="center"
+          justifyContent="center"
+          sx={{ gap: 2 }}
+        >
+          <Grid item>
+            <TextField
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              label="Enter Expence"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              variant="outlined"
+            />
+          </Grid>
+        </Grid>
+        <Button type="submit" variant="contained" sx={{ my: 3 }}>
+          Add
+        </Button>
+      </Box>
+      <Transactions />
 
-export default Main
+      <Balance />
+    </Container>
+  );
+};
+
+export default Main;

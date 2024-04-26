@@ -1,12 +1,14 @@
-import React from 'react'
+import React from "react";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 
-function header() {
+const header = () => {
   return (
-    <header className='header'>
-        <h3>Expences Tracker</h3>
-        <div className="underline"></div>
-    </header>
-  )
-}
+    <Container sx={{ my: 3 }} maxWidth="xs">
+      <Typography variant="h4">Expenses Tracker</Typography>
+      <div className="underline" />
+    </Container>
+  );
+};
 
-export default header
+export default header;
