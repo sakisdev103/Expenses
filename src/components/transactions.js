@@ -25,7 +25,7 @@ const Transactions = () => {
                 <Typography
                   variant="h6"
                   color={`${
-                    item.amount >= 0 ? `primary.light` : `secondary.light`
+                    item.amount >= 0 ? `success.light` : `error.light`
                   }`}
                 >
                   {item.amount}
@@ -34,7 +34,7 @@ const Transactions = () => {
               <Grid item xs={2}>
                 <Button
                   variant="text"
-                  color="secondary"
+                  color="error"
                   onClick={() => deleteTransaction(item.id)}
                 >
                   <DeleteIcon />
