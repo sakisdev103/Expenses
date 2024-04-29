@@ -8,17 +8,26 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const DataTable = () => {
-  const { transactions } = useContext(globalContext);
+  const { transactions, deleteTransaction } = useContext(globalContext);
   return (
     <TableContainer sx={{ mt: 3 }} component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell align="right">Merchant</TableCell>
-            <TableCell align="right">Transaction Amount</TableCell>
+            <TableCell>
+              <Typography variant="h6">Date</Typography>
+            </TableCell>
+            <TableCell align="right">
+              <Typography variant="h6">Merchant</Typography>
+            </TableCell>
+            <TableCell align="right">
+              <Typography variant="h6">Transaction Amount</Typography>
+            </TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -26,7 +35,7 @@ const DataTable = () => {
             return (
               <TableRow key={item.id}>
                 <TableCell component="th" scope="row">
-                  {item.date}
+                  <Typography>{item.date}</Typography>
                 </TableCell>
                 <TableCell align="right">
                   <Typography>{item.text}</Typography>
@@ -39,6 +48,15 @@ const DataTable = () => {
                   >
                     {`${item.amount}€`}
                   </Typography>
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    aria-label="close"
+                    color="error"
+                    onClick={() => deleteTransaction(item.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             );
