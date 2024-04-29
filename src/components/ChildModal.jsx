@@ -24,7 +24,7 @@ const style = {
   p: 4,
 };
 
-export const ChildModal = ({ openModal, setOpenModal }) => {
+export const ChildModal = ({ setOpenModal }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
 
@@ -49,6 +49,7 @@ export const ChildModal = ({ openModal, setOpenModal }) => {
     e.preventDefault();
     const newTransaction = {
       id: uniqid(),
+      date,
       text,
       amount: +amount,
     };
