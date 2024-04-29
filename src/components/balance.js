@@ -13,7 +13,10 @@ function Balance() {
       <Typography variant="h5" align="center" sx={{ mt: 3 }}>
         YOUR BALANCE
       </Typography>
-      <Typography variant="h6">{`${total} €`}</Typography>
+      <Typography
+        variant="h6"
+        color={`${total >= 0 ? `success.light` : `error.light`}`}
+      >{`${total} €`}</Typography>
     </Container>
   );
 }
