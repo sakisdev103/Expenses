@@ -6,11 +6,69 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+
 const Transactions = () => {
   const { transactions, deleteTransaction } = useContext(globalContext);
   return (
     <Container maxWidth="xs" sx={{ mt: 3 }}>
-      <Typography variant="h4" align="center">
+      <Typography align="center">
+        <Grid container>
+          <Grid item xs={6}>
+            <Typography variant="h6" color="error.light">
+              -$15.00
+            </Typography>
+            <Typography variant="p">EXPENSES</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="h6" color="success.light">
+              $0.00
+            </Typography>
+            <Typography variant="p">REVENUE</Typography>
+          </Grid>
+        </Grid>
+        <TableContainer sx={{ mt: 3 }} component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Date</TableCell>
+                <TableCell align="right">Merchant</TableCell>
+                <TableCell align="right">Transaction Amount</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {transactions.map((item) => {
+                return (
+                  <TableRow key={item.id}>
+                    <TableCell component="th" scope="row">
+                      {item.date}
+                    </TableCell>
+                    <TableCell align="right">
+                      <Typography>{item.text}</Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Typography
+                        color={`${
+                          item.amount >= 0 ? `success.light` : `error.light`
+                        }`}
+                      >
+                        {`${item.amount}€`}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Typography>
+      {/* <Typography variant="h4" align="center">
         Recent Transactions
       </Typography>
       <div className="underline" />
@@ -42,22 +100,8 @@ const Transactions = () => {
               </Grid>
             </Grid>
           </Container>
-          // <article key={item.id} className="flex">
-          //   <div className="history">
-          //     <label>{item.text}</label>
-          //     <label className={item.amount >= 0 ? `positive` : `negative`}>
-          //       {item.amount}
-          //     </label>
-          //   </div>
-          //   <button
-          //     className="trash"
-          //     onClick={() => deleteTransaction(item.id)}
-          //   >
-          //     <i className="fa-solid fa-trash-can"></i>
-          //   </button>
-          // </article>
         );
-      })}
+      })} */}
     </Container>
   );
 };
