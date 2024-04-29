@@ -1,7 +1,5 @@
 import React, { useState, useContext } from "react";
 import { globalContext } from "../context/globalState";
-import Transactions from "./transactions";
-import Balance from "./balance";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
@@ -9,7 +7,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import uniqid from "uniqid";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -27,7 +24,7 @@ const style = {
   p: 4,
 };
 
-const ChildModal = ({ openModal, setOpenModal }) => {
+export const ChildModal = ({ openModal, setOpenModal }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
 
@@ -148,79 +145,3 @@ const ChildModal = ({ openModal, setOpenModal }) => {
     </React.Fragment>
   );
 };
-
-const Main = () => {
-  const [openModal, setOpenModal] = useState(false);
-
-  const handleOpen = () => setOpenModal(true);
-  const handleClose = () => setOpenModal(false);
-
-  return (
-    <Container>
-      <Grid container alignItems="center" justifyContent="space-between">
-        <Grid item>
-          <Typography variant="h5">Transactions</Typography>
-        </Grid>
-        <Grid item>
-          <Button
-            variant="contained"
-            color="success"
-            endIcon={<ArrowDropDownIcon />}
-            onClick={handleOpen}
-          >
-            New
-          </Button>
-        </Grid>
-      </Grid>
-      <Modal
-        open={openModal}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <ChildModal openModal={openModal} setOpenModal={setOpenModal} />
-        </Box>
-      </Modal>
-
-      {/* <Box
-        component="form"
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
-        <Grid
-          container
-          alignItems="center"
-          justifyContent="center"
-          sx={{ gap: 2 }}
-        >
-          <Grid item>
-            <TextField
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              label="Enter Expence"
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              variant="outlined"
-            />
-          </Grid>
-        </Grid>
-        <Button type="submit" variant="contained" sx={{ my: 3 }}>
-          Add
-        </Button>
-      </Box>
-      <Transactions />
-      <Balance /> */}
-      <Transactions />
-      <Balance />
-    </Container>
-  );
-};
-
-export default Main;
