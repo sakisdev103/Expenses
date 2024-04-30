@@ -35,20 +35,20 @@ export const ChildModal = ({ setOpenModal }) => {
 
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const [text, setText] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
   const { addTransaction } = useContext(globalContext);
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, title) => {
     e.preventDefault();
     const newTransaction = {
       id: uniqid(),
       date,
       text,
-      amount: +amount,
+      amount: title === "Revenue" ? +amount : -amount,
     };
 
     addTransaction(newTransaction);
     setText("");
-    setAmount(0);
+    setAmount();
     setOpen(false);
     setOpenModal(false);
   };
@@ -96,12 +96,12 @@ export const ChildModal = ({ setOpenModal }) => {
           </Grid>
         </DialogTitle>
         <DialogContent>
-          <Typography align="center">
+          <Typography align="center" sx={{ my: 1 }}>
             <Box
               component="form"
               noValidate
               autoComplete="off"
-              onSubmit={handleSubmit}
+              onSubmit={(e) => handleSubmit(e, title)}
             >
               <Grid container spacing={3}>
                 <Grid item xs={12}>
@@ -114,10 +114,14 @@ export const ChildModal = ({ setOpenModal }) => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    value={amount}
+                    value={amount < 0 ? 0 : amount}
                     onChange={(e) => setAmount(e.target.value)}
                     label="Amount"
                     variant="outlined"
+                    InputProps={{
+                      type: "number",
+                      inputProps: { min: 0 },
+                    }}
                   />
                 </Grid>
               </Grid>
