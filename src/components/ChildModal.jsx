@@ -7,22 +7,14 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import uniqid from "uniqid";
-import Modal from "@mui/material/Modal";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-const style = {
-  position: "absolute",
-  top: "40%",
-  left: "20%",
-  width: "60%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-};
 
 export const ChildModal = ({ setOpenModal }) => {
   const [open, setOpen] = useState(false);
@@ -73,6 +65,7 @@ export const ChildModal = ({ setOpenModal }) => {
           <Button
             variant="text"
             color="error"
+            size="large"
             onClick={() => handleOpen("Expense")}
           >
             Expense
@@ -82,14 +75,15 @@ export const ChildModal = ({ setOpenModal }) => {
           <Button
             variant="text"
             color="success"
+            size="large"
             onClick={() => handleOpen("Revenue")}
           >
             Revenue
           </Button>
         </Grid>
       </Grid>
-      <Modal open={open} onClose={handleClose}>
-        <Box sx={{ ...style, top: "20%" }}>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
               <Typography variant="h6">{title}</Typography>
@@ -100,7 +94,9 @@ export const ChildModal = ({ setOpenModal }) => {
               </IconButton>
             </Grid>
           </Grid>
-          <Typography align="center" sx={{ my: 1 }}>
+        </DialogTitle>
+        <DialogContent>
+          <Typography align="center">
             <Box
               component="form"
               noValidate
@@ -141,8 +137,8 @@ export const ChildModal = ({ setOpenModal }) => {
               </Button>
             </Box>
           </Typography>
-        </Box>
-      </Modal>
+        </DialogContent>
+      </Dialog>
     </React.Fragment>
   );
 };
