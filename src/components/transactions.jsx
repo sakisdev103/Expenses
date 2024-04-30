@@ -3,12 +3,14 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import DataTable from "./DataTable";
 import DataAmount from "./DataAmount";
+import DateFilter from "./DateFilter";
 
 const Transactions = () => {
   return (
     <Container sx={{ mt: 3 }}>
       <Typography align="center">
         <DataAmount />
+        <DateFilter />
         <DataTable />
       </Typography>
     </Container>
