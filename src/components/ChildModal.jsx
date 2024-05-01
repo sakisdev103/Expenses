@@ -16,7 +16,7 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export const ChildModal = ({ setOpenModal }) => {
+export const ChildModal = ({ setAnchorEl }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
 
@@ -50,7 +50,7 @@ export const ChildModal = ({ setOpenModal }) => {
     setText("");
     setAmount();
     setOpen(false);
-    setOpenModal(false);
+    setAnchorEl(null);
   };
 
   return (

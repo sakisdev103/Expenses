@@ -6,16 +6,21 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 import { ChildModal } from "./ChildModal";
 
 const Main = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
-  const handleOpen = () => setOpenModal(true);
-  const handleClose = () => setOpenModal(false);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Container>
@@ -28,17 +33,29 @@ const Main = () => {
             variant="contained"
             color="success"
             endIcon={<ArrowDropDownIcon />}
-            onClick={handleOpen}
+            id="add-transaction-button"
+            aria-controls={open ? "add-transaction" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
           >
             New
           </Button>
+          <Menu
+            id="add-transaction"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "add-transaction-button",
+            }}
+          >
+            <MenuItem>
+              <ChildModal setAnchorEl={setAnchorEl} />
+            </MenuItem>
+          </Menu>
         </Grid>
       </Grid>
-      <Dialog open={openModal} onClose={handleClose}>
-        <DialogContent>
-          <ChildModal openModal={openModal} setOpenModal={setOpenModal} />
-        </DialogContent>
-      </Dialog>
       <Transactions />
       <Balance />
     </Container>
