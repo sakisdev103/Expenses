@@ -17,16 +17,12 @@ const Transactions = () => {
   });
 
   const filteredTransactions = transactions.filter((item) => {
-    if (
-      moment(item.date).isBetween(
-        dates.startingDate,
-        dates.endingDate,
-        "days",
-        "[]"
-      )
-    ) {
-      return item;
-    }
+    return moment(item.date).isBetween(
+      dates.startingDate,
+      dates.endingDate,
+      "days",
+      "[]"
+    );
   });
   return (
     <Container sx={{ mt: 3 }}>

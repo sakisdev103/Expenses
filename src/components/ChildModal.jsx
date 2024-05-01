@@ -23,7 +23,7 @@ export const ChildModal = ({ setAnchorEl, open, setOpen, title }) => {
 
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const [text, setText] = useState("");
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState(0);
   const { addTransaction } = useContext(globalContext);
   const handleSubmit = (e, title) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ export const ChildModal = ({ setAnchorEl, open, setOpen, title }) => {
 
     addTransaction(newTransaction);
     setText("");
-    setAmount(null);
+    setAmount(0);
     setOpen(false);
     setAnchorEl(null);
   };
