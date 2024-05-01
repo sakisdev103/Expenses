@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
-const DateFilter = () => {
-  const [dates, setDates] = useState({
-    startingDate: moment().format("YYYY-MM-DD"),
-    endingDate: moment().add(1, "d").format("YYYY-MM-DD"),
-  });
+const DateFilter = ({ dates, setDates }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
   const onChange = (dates) => {
     const [start, end] = dates;
     console.log(start, end);
@@ -17,62 +18,54 @@ const DateFilter = () => {
       endingDate: end,
     });
   };
+  const handleClick = (e) => {
+    e.preventDefault();
+    setAnchorEl(e.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <React.Fragment>
-      <DatePicker
-        showIcon
-        className=""
-        selected={dates.startingDate}
-        onChange={onChange}
-        startDate={dates.startingDate}
-        endDate={dates.endingDate}
-        selectsRange
-        selectsDisabledDaysInRange
-        withPortal
-      />
-
-      {/* <Grid container sx={{ mt: 3 }}>
-        <Grid item xs={6}>
+      <Button
+        variant="outlined"
+        startIcon={<CalendarMonthIcon />}
+        size="large"
+        color="info"
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+      >
+        {`${moment(dates.startingDate).format("YYYY-MM-DD")} -
+          ${
+            dates.endingDate !== null
+              ? moment(dates.endingDate).format("YYYY-MM-DD")
+              : ""
+          }`}
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem>
           <DatePicker
-            name="startingDate"
-            selectsStart
             selected={dates.startingDate}
-            value={dates.startingDate}
-            onChange={(e) =>
-              setDates({
-                ...dates,
-                startingDate: moment(e).format("YYYY-MM-DD"),
-                endingDate: moment(e).add(1, "d").format("YYYY-MM-DD"),
-              })
-            }
-            startDate={moment(dates.startingDate).toDate()}
-            disabledKeyboardNavigation
-            withPortal
-            onFocus={(e) => (e.target.readOnly = true)}
+            onChange={onChange}
+            startDate={dates.startingDate}
+            endDate={dates.endingDate}
+            selectsRange
+            selectsDisabledDaysInRange
+            inline
           />
-        </Grid>
-        <Grid item xs={6}>
-          <DatePicker
-            name="endingDate"
-            selectsEnd
-            selected={dates.endingDate}
-            value={dates.endingDate}
-            onChange={(e) =>
-              setDates({
-                ...dates,
-                endingDate: moment(e).format("YYYY-MM-DD"),
-              })
-            }
-            minDate={moment(dates.startingDate)
-              .add(1, "d")
-              .format("YYYY-MM-DD")}
-            startDate={moment(dates.startingDate).toDate()}
-            disabledKeyboardNavigation
-            withPortal
-            onFocus={(e) => (e.target.readOnly = true)}
-          />
-        </Grid>
-      </Grid> */}
+        </MenuItem>
+      </Menu>
     </React.Fragment>
   );
 };
