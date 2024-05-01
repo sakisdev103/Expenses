@@ -6,7 +6,6 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
-console.log(grey[900]);
 
 const theme = createTheme({
   palette: {
@@ -22,7 +21,7 @@ const App = () => {
       <GlobalProvider>
         <Container maxWidth="lg" sx={{ mt: 5 }}>
           <CssBaseline />
-          <Typography align="center">
+          <Typography align="center" component="div">
             <Main />
           </Typography>
         </Container>
