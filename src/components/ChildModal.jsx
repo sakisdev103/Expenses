@@ -16,19 +16,7 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export const ChildModal = ({ setAnchorEl }) => {
-  const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-
-  const handleOpen = (transaction) => {
-    if (transaction === "Expense") {
-      setTitle("Expense");
-    } else {
-      setTitle("Revenue");
-    }
-    setOpen(true);
-  };
-
+export const ChildModal = ({ setAnchorEl, open, setOpen, title }) => {
   const handleClose = () => {
     setOpen(false);
   };
@@ -55,33 +43,6 @@ export const ChildModal = ({ setAnchorEl }) => {
 
   return (
     <React.Fragment>
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="center"
-        sx={{ gap: 2 }}
-      >
-        <Grid item>
-          <Button
-            variant="text"
-            color="error"
-            size="large"
-            onClick={() => handleOpen("Expense")}
-          >
-            Expense
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            variant="text"
-            color="success"
-            size="large"
-            onClick={() => handleOpen("Revenue")}
-          >
-            Revenue
-          </Button>
-        </Grid>
-      </Grid>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
           <Grid container alignItems="center" justifyContent="space-between">

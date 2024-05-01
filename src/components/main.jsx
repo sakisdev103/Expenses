@@ -13,13 +13,25 @@ import { ChildModal } from "./ChildModal";
 
 const Main = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const isOpen = Boolean(anchorEl);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+
+  const handleOpen = (transaction) => {
+    if (transaction === "Expense") {
+      setTitle("Expense");
+    } else {
+      setTitle("Revenue");
+    }
+    setOpen(true);
   };
 
   return (
@@ -34,9 +46,9 @@ const Main = () => {
             color="success"
             endIcon={<ArrowDropDownIcon />}
             id="add-transaction-button"
-            aria-controls={open ? "add-transaction" : undefined}
+            aria-controls={isOpen ? "add-transaction" : undefined}
             aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
+            aria-expanded={isOpen ? "true" : undefined}
             onClick={handleClick}
           >
             New
@@ -44,18 +56,41 @@ const Main = () => {
           <Menu
             id="add-transaction"
             anchorEl={anchorEl}
-            open={open}
+            open={isOpen}
             onClose={handleClose}
             MenuListProps={{
               "aria-labelledby": "add-transaction-button",
             }}
           >
             <MenuItem>
-              <ChildModal setAnchorEl={setAnchorEl} />
+              <Button
+                variant="text"
+                color="error"
+                size="large"
+                onClick={() => handleOpen("Expense")}
+              >
+                Expense
+              </Button>
+            </MenuItem>
+            <MenuItem>
+              <Button
+                variant="text"
+                color="success"
+                size="large"
+                onClick={() => handleOpen("Revenue")}
+              >
+                Revenue
+              </Button>
             </MenuItem>
           </Menu>
         </Grid>
       </Grid>
+      <ChildModal
+        setAnchorEl={setAnchorEl}
+        open={open}
+        setOpen={setOpen}
+        title={title}
+      />
       <Transactions />
       <Balance />
     </Container>
