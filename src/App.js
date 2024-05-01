@@ -1,5 +1,5 @@
 import React from "react";
-import Main from "./components/main";
+import Main from "./components/Main";
 import { GlobalProvider } from "./context/globalState";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
