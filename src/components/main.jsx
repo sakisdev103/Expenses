@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Transactions from "./transactions";
-import Balance from "./balance";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -92,7 +91,6 @@ const Main = () => {
         title={title}
       />
       <Transactions />
-      <Balance />
     </Container>
   );
 };
