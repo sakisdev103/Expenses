@@ -23,7 +23,7 @@ export const ChildModal = ({ setAnchorEl, open, setOpen, title }) => {
 
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const [text, setText] = useState("");
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState(null);
   const { addTransaction } = useContext(globalContext);
   const handleSubmit = (e, title) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ export const ChildModal = ({ setAnchorEl, open, setOpen, title }) => {
 
     addTransaction(newTransaction);
     setText("");
-    setAmount();
+    setAmount(null);
     setOpen(false);
     setAnchorEl(null);
   };
@@ -57,7 +57,7 @@ export const ChildModal = ({ setAnchorEl, open, setOpen, title }) => {
           </Grid>
         </DialogTitle>
         <DialogContent>
-          <Typography align="center" sx={{ my: 1 }}>
+          <Typography align="center" sx={{ my: 1 }} component="div">
             <Box
               component="form"
               noValidate
