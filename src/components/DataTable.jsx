@@ -1,7 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { globalContext } from "../context/globalState";
-import DateFilter from "./DateFilter";
-import moment from "moment";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,30 +11,10 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const DataTable = () => {
-  const { transactions, deleteTransaction } = useContext(globalContext);
-
-  const [dates, setDates] = useState({
-    startingDate: moment().format("YYYY-MM-DD"),
-    endingDate: moment().format("YYYY-MM-DD"),
-  });
-
-  const filteredTransactions = transactions.filter((item) => {
-    if (
-      moment(item.date).isBetween(
-        dates.startingDate,
-        dates.endingDate,
-        "days",
-        "[]"
-      )
-    ) {
-      return item;
-    }
-  });
-
+const DataTable = ({ filteredTransactions }) => {
+  const { deleteTransaction } = useContext(globalContext);
   return (
-    <TableContainer sx={{ mt: 3 }} component={Paper}>
-      <DateFilter dates={dates} setDates={setDates} />
+    <TableContainer component={Paper} sx={{ mt: 3 }}>
       <Table>
         <TableHead>
           <TableRow>

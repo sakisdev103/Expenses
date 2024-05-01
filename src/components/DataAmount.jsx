@@ -1,22 +1,20 @@
-import React, { useContext } from "react";
-import { globalContext } from "../context/globalState";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-const DataAmount = () => {
-  const { transactions } = useContext(globalContext);
-  const revenue = transactions
+const DataAmount = ({ filteredTransactions }) => {
+  const revenue = filteredTransactions
     .filter(({ amount }) => amount > 0)
     .map((transaction) => transaction.amount)
     .reduce((acc, item) => (acc += item), 0)
     .toFixed(2);
-  const expenses = transactions
+  const expenses = filteredTransactions
     .filter(({ amount }) => amount < 0)
     .map((transaction) => transaction.amount)
     .reduce((acc, item) => (acc += item), 0)
     .toFixed(2);
   return (
-    <Grid container>
+    <Grid container sx={{ mb: 3 }}>
       <Grid item xs={6}>
         <Typography variant="h6" color="error.light">
           {`${expenses} €`}

@@ -12,7 +12,6 @@ const DateFilter = ({ dates, setDates }) => {
   const open = Boolean(anchorEl);
   const onChange = (dates) => {
     const [start, end] = dates;
-    console.log(start, end);
     setDates({
       startingDate: start,
       endingDate: end,
