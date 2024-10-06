@@ -1,4 +1,6 @@
 import React from "react";
+import { Provider } from "react-redux";
+import { store } from "./state/store";
 import Main from "./components/Main";
 import { GlobalProvider } from "./context/globalState";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,16 +19,18 @@ const theme = createTheme({
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalProvider>
-        <Container maxWidth="lg" sx={{ mt: 5 }}>
-          <CssBaseline />
-          <Typography align="center" component="div">
-            <Main />
-          </Typography>
-        </Container>
-      </GlobalProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <GlobalProvider>
+          <Container maxWidth="lg" sx={{ mt: 5 }}>
+            <CssBaseline />
+            <Typography align="center" component="div">
+              <Main />
+            </Typography>
+          </Container>
+        </GlobalProvider>
+      </ThemeProvider>
+    </Provider>
   );
 };
 
