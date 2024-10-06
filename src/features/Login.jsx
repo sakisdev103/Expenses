@@ -1,0 +1,129 @@
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+//File
+import { loginUser, demoUser } from "@/state/Auth/AuthSlice";
+
+//Redux
+import { useSelector, useDispatch } from "react-redux";
+// import { AppDispatch, RootState } from "@/state/store";
+
+//React-form / zod
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+//UI
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+const Login = () => {
+  const navigate = useNavigate();
+  const { loggedInUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loggedInUser) {
+      navigate("/Expenses/");
+    }
+  }, [loggedInUser]);
+
+  const formSchema = z.object({
+    email: z
+      .string()
+      .min(1, {
+        message: "Please provide an email",
+      })
+      .max(30, {
+        message: "Email is too long",
+      }),
+    password: z
+      .string()
+      .min(1, {
+        message: "Please provide a password",
+      })
+      .max(20, {
+        message: "Password is too long",
+      }),
+  });
+
+  const form =
+    useForm <
+    z.infer <
+    typeof formSchema >>
+      {
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+          email: "",
+          password: "",
+        },
+      };
+
+  const onSubmit = (values) => {
+    dispatch(loginUser(values));
+  };
+
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-3/4 sm:w-2/4 lg:w-2/5">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input type="email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+          </form>
+        </Form>
+        <p>
+          Don't have an account?
+          <Button variant="link" asChild>
+            <Link to="/GymNotes-Typescript/register">Register</Link>
+          </Button>
+        </p>
+        <div className="mt-10">
+          <Button
+            variant={"secondary"}
+            className="w-full"
+            onClick={() => dispatch(demoUser())}
+          >
+            Explore The App
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default Login;
